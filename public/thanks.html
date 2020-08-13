@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Tom Reifenberg thank you page">
+        <meta name="keywords" content="thank you, thanks, contact">
+        <link rel="stylesheet" type="text/css" href="./dist/css/main.min.css">
+       <title>Tom Reifenberg Resume</title>
+    </head>
+    <body>
+      <header>
+        <span class="logo">Tom Reifenberg</span>
+        <a id="toggleMenu">Menu<a>   
+    <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      </header>
+        <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="resume.html">Resume</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        <!-- layout and content goes here-->
+        <main>
+        <p>Thanks for contacting me! I'll be in touch shortly.</p>
+      </main>
+
+        <script>
+
+          var toggleMenu = document.getElementById('toggleMenu');
+          var nav = document.querySelector('nav');
+          toggleMenu.addEventListener(
+            'click',
+            function(){
+              if(nav.style.display=='block'){
+                nav.style.display='none';
+              }else{
+                nav.style.display='block';
+              }
+            }
+          );
+        </script>
+    </body>
+</html>
