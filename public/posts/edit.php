@@ -1,6 +1,7 @@
 <?php
-require '../../config/keys.php';
+require '../../core/functions.php';
 require '../../core/db_connect.php';
+require '../../core/bootstrap.php';
 
 // Get the post
 $get = filter_input_array(INPUT_GET);
@@ -13,7 +14,7 @@ $row = $stmt->fetch();
 //If the id cannot be found kill the request
 if(empty($row)){
     http_response_code(404);
-    die('Page Not Found <a href="/">Return Home</a>');
+    die('Page Not Found <a href="/">Home</a>');
   }
 
 //var_dump($row);
@@ -24,12 +25,12 @@ $meta['title']= "Edit: {$row['title']}";
 // Update the post
 $message=null;
 
-//strips HTML, 'body' is NULL FILTER
 $args = [
-    'title'=>FILTER_SANITIZE_STRING,
-    'meta_description'=>FILTER_SANITIZE_STRING,
-    'meta_keywords'=>FILTER_SANITIZE_STRING,
-    'body'=>FILTER_UNSAFE_RAW
+    'id'=>FILTER_SANITIZE_STRING, //strips HMTL
+    'title'=>FILTER_SANITIZE_STRING, //strips HMTL
+    'meta_description'=>FILTER_SANITIZE_STRING, //strips HMTL
+    'meta_keywords'=>FILTER_SANITIZE_STRING, //strips HMTL
+    'body'=>FILTER_UNSAFE_RAW  //NULL FILTER
 ];
 
 $input = filter_input_array(INPUT_POST, $args);
@@ -68,60 +69,40 @@ if(!empty($input)){
     }
 }
 
-
-//Code below is from add.php for all the SQL content (if-else statement), for reference
-
-// if(!empty($input)){
-
-//     $input = array_map('trim', $input);
-
-//     $slug = preg_replace(
-//         "/[^a-z0-9-]+/",
-//         "-",
-//         strtolower($input['title'])
-//     );
-
-//     $sql = 'INSERT INTO posts SET id=uuid(), title=?, slug=?, body=?';
-//     if($pdo->prepare($sql)->execute([
-//         $input['title'],
-//         $slug,
-//         $input['body']
-//     ])){
-//        header('LOCATION:/posts');
-//     }else{
-//         $message = 'Something bad happened';
-//     }
-// }
-
 $content = <<<EOT
-<h1>Edit Post {$row['title']}</h1>
+<h1>EDIT: {$row['title']}</h1>
+{$message}
 <form method="post">
-
+<input id="id" name="id" value="{$row['id']}" type="hidden">
 <div class="form-group">
     <label for="title">Title</label>
-    <input id="title" name="title" type="text" class="form-control">
+    <input id="title" value="{$row['title']}" name="title" type="text" class="form-control">
 </div>
-
 <div class="form-group">
     <label for="body">Body</label>
-    <textarea id="body" name="body" rows="8" class="form-control"></textarea>
+    <textarea id="body" name="body" rows="8"
+      class="form-control"
+      >{$row['body']}
+    </textarea>
 </div>
-
 <div class="row">
     <div class="form-group col-md-6">
         <label for="meta_description">Description</label>
-        <textarea id="meta_description" name="meta_description" rows="2" class="form-control"></textarea>
+        <textarea id="meta_description" name="meta_description" rows="2"
+          class="form-control"
+          >{$row['meta_description']}</textarea>
     </div>
-
     <div class="form-group col-md-6">
         <label for="meta_keywords">Keywords</label>
-        <textarea id="meta_keywords" name="meta_keywords" rows="2" class="form-control"></textarea>
+        <textarea id="meta_keywords" name="meta_keywords" rows="2"
+          class="form-control"
+          >{$row['meta_keywords']}</textarea>
     </div>
 </div>
-
 <div class="form-group">
     <input type="submit" value="Submit" class="btn btn-primary">
-    <input type="reset" value="Undo Changes" class="btn btn-secondary">
+    <br><br>
+    <input type="reset" value="Reset" class="btn btn-secondary">
 </div>
 </form>
 EOT;

@@ -14,7 +14,8 @@ $options = [
 ];
 try {
      $pdo = new PDO($dsn, $user, $pass, $options);
-     var_dump($pdo);
+     // var_dump below is just for developer reference; shouldn't be turned on for active website to avoid sharing information above in PDO
+     // var_dump($pdo);
 } catch (\PDOException $e) {
      throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }

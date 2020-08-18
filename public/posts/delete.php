@@ -1,6 +1,6 @@
 <?php
-require '../../config/keys.php';
 require '../../core/db_connect.php';
+require '../../core/bootstrap.php';
 
 $args=[
   'id'=>FILTER_UNSAFE_RAW,
@@ -27,9 +27,7 @@ $meta['title']="DELETE: {$row['title']}";
 $content=<<<EOT
 <h1 class="text-danger text-center">DELETE: {$row['title']}</h1>
 <p class="text-danger text-center">Are you sure you want to delete {$row['title']}?</p>
-
 <div class="text-center">
-
   <a href="delete.php?id={$row['id']}&confirm=1" class="btn btn-link text-danger">Delete</a>
   <br><br>
   <a href="./" class="btn btn-success btn-lg">Cancel</a>
