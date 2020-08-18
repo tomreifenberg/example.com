@@ -16,7 +16,7 @@ function checkSession(){
     //This will allow the user to be properly redirected on login
     $goto = $_SERVER['PHP_SELF'];
     $qs = !empty($_SERVER['QUERY_STRING'])?"?{$_SERVER['QUERY_STRING']}":false;
-    header('Location: /login.php?goto='.$goto.$qs);
+    header('Location: ../login.php?goto='.$goto.$qs);
   }
 
 }

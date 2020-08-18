@@ -2,6 +2,7 @@
 require '../core/bootstrap.php';
 // 1. Connect to the database
 require '../core/db_connect.php';
+require '..core/functions.php';
 
 // 2. Filter the user inputs
 $input = filter_input_array(INPUT_POST,[
